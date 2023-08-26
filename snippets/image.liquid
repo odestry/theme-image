@@ -7,6 +7,7 @@
     - class: {string} Extra classes (optional)
     - lazyload: {boolean} Lazyload the image (optional) (default: false)
     - alt: {string} Custom image ALT (optional) (default: image.alt)
+    - preload: {boolean} Preload the image into th head. (optional) (default: false)
     - placeholder: {string} Placeholder name when image is empty (optional) (default: 'hero-apparel-1')
 
   Usage:
@@ -18,6 +19,7 @@
   assign alt = alt | default: image.alt | escape
 
   assign lazyload = lazyload | default: false
+  assign preload = preload | default: false
   assign priority = 'auto'
   assign decoding = 'auto'
 
@@ -41,7 +43,8 @@
         widths: '200,300,400,500,600,700,800,1000,1200,1400,1600,1800,2000,2200',
         loading: loading,
         fetchpriority: priority,
-        decoding: decoding
+        decoding: decoding,
+        preload: preload
     }}
   {% else %}
     {% liquid
@@ -58,7 +61,6 @@
       height="800"
       loading="{{ loading }}"
       fetchpriority="{{ priority }}"
-      decoding="{{ decoding }}"
-    >
+      decoding="{{ decoding }}">
   {% endif %}
 </picture>
