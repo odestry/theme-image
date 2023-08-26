@@ -1,0 +1,55 @@
+<section
+  class="grid items-center py-[calc(var(--spacing)*0.75)] lg:py-[--spacing]"
+  style="--spacing: {{ section.settings.spacing }}px">
+  <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start gap-4 md:gap-5">
+    {% liquid
+      assign image = section.settings.image
+      assign lazyload = false
+
+      if section.settings.use_product_image
+        assign image = collections.first.products.first.featured_image
+      endif
+
+      for index in (1..section.settings.number_of_images)
+        if forloop.index > 3
+          assign lazyload = true
+        endif
+
+        render 'image' with image, lazyload: lazyload
+      endfor
+    %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Image List",
+  "settings": [
+    {
+      "type": "range",
+      "id": "number_of_images",
+      "min": 1,
+      "max": 50,
+      "step": 1,
+      "label": "Number of images",
+      "default": 10
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_product_image",
+      "label": "Use product image",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image List"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-section"
+    },
+    "image-list": {
+      "type": "image-list"
+    }
+  },
+  "order": [
+    "main",
+    "image-list"
+  ]
+}
