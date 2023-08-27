@@ -8,30 +8,36 @@
       if section.settings.use_product_image and collections.all.products.size > 0
         assign image = collections.all.products.first.featured_image
       endif
+
+      render 'image' with image, class: 'h-[50vh] lg:h-[30rem]', preload: true
     %}
-    {% render 'image' with image, class: 'h-[50vh] lg:h-[30rem]', preload: true %}
     <h1 class="max-w-xl scroll-m-20 text-4xl font-medium tracking-tight lg:text-5xl">
       {{ section.settings.heading }}
     </h1>
     <p class="max-w-prose text-xl text-gray-500">
       {{ section.settings.text }}
     </p>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start gap-4 md:gap-5">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-start gap-3 md:gap-4 lg:gap-5 mt-4">
       {% liquid
-        assign image = section.settings.image
         assign lazyload = false
 
         if section.settings.use_product_image and collections.all.products.size > 0
-          assign image = collections.all.products.last.featured_image
+          for product in collections.all.products limit: section.settings.number_of_images
+            if forloop.index > 10
+              assign lazyload = true
+            endif
+
+            render 'image' with product.featured_image, class: 'aspect-square', lazyload: lazyload
+          endfor
+        else
+          for index in (1..section.settings.number_of_images)
+            if forloop.index > 10
+              assign lazyload = true
+            endif
+
+            render 'image' with section.settings.image, lazyload: lazyload
+          endfor
         endif
-
-        for index in (1..section.settings.number_of_images)
-          if forloop.index > 3
-            assign lazyload = true
-          endif
-
-          render 'image' with image, lazyload: lazyload
-        endfor
       %}
     </div>
   </div>
@@ -48,7 +54,7 @@
       "max": 50,
       "step": 1,
       "label": "Number of images",
-      "default": 12
+      "default": 50
     },
     {
       "type": "image_picker",
@@ -88,11 +94,11 @@
       "type": "range",
       "id": "spacing",
       "min": 0,
-      "max": 100,
+      "max": 80,
       "step": 4,
       "unit": "px",
       "label": "Vertical Spacing",
-      "default": 48
+      "default": 16
     }
   ],
   "presets": [

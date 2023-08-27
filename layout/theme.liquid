@@ -19,12 +19,22 @@
     {{ 'styles.css' | asset_url | stylesheet_tag: preload: true }}
   </head>
   <body class="min-h-screen">
+    <header class="container mx-auto px-4 py-2 lg:py-4">
+      <a href="{{ routes.root_url }}" class="font-medium text-lg lg:text-xl no-underline">
+        {{ shop.name }}
+      </a>
+    </header>
+
     <main
       id="MainContent"
       class="flex flex-col outline-none"
       tabindex="-1">
       {{ content_for_layout }}
     </main>
+
+    <footer class="container mx-auto px-4 grid justify-center text-gray-400 py-6 lg:py-10">
+      {{ powered_by_link }}
+    </footer>
 
     {% render 'development-screen-indicator' %}
 
