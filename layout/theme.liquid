@@ -12,6 +12,8 @@
       <meta name="description" content="{{ page_description | escape }}">
     {% endif %}
 
+    {% render 'typography' %}
+
     {{ 'styles.css' | asset_url | stylesheet_tag: preload: true }}
 
     {{ content_for_header }}

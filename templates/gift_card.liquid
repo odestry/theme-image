@@ -16,9 +16,11 @@
 
     <meta name="description" content="{{ 'gift_cards.issued.subtext' | t }}">
 
-    {{ content_for_header }}
+    {% render 'typography' %}
 
     {{ 'styles.css' | asset_url | stylesheet_tag: preload: true }}
+
+    {{ content_for_header }}
   </head>
   <body>
     <main
