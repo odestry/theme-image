@@ -1,4 +1,3 @@
-<h5>{{ section.is_first }}</h5>
 <section
   class="grid items-center py-[calc(var(--spacing)*0.75)] lg:py-[--spacing]"
   style="--spacing: {{ section.settings.spacing }}px">
@@ -10,7 +9,7 @@
         assign image = collections.all.products.first.featured_image
       endif
 
-      render 'image' with image, class: 'aspect-square md:aspect-auto lg:h-[30rem]', preload: true
+      render 'image' with image, class: 'aspect-square md:aspect-auto lg:h-[30rem]'
     %}
     <h1 class="max-w-xl scroll-m-20 text-4xl font-medium tracking-tight lg:text-5xl">
       {{ section.settings.heading }}
